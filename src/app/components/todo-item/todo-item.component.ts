@@ -15,11 +15,19 @@ export class TodoItemComponent implements OnInit {
 
 // Set Dynamic Classes
   setClasses() {
-    let classes = {
+    const classes = {
       todo: true,
-      'is-completed': this.todo.completed // this.todo comes from the input. 'is-completed' has to be in quotes because it is hypenated
+      'is-complete': this.todo.completed // this.todo comes from the input. 'is-completed' has to be in quotes because it is hypenated
     };
     return classes;
   }
+  onToggle(todo) {
+    console.log('toggle');
+    todo.completed = !todo.completed; // setting this to whatever it is not
+  }
 
+  onDelete(todo) {
+    console.log('delete');
+
+  }
 }
