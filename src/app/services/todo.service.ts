@@ -5,7 +5,7 @@ import { Observable } from 'rxjs';
 
 const httpOptions = {
   headers: new HttpHeaders({
-    'Content-Type': 'application/json' // takes in object with whatever heads we want to send (application/json in this case)
+    'Content-Type': 'application/json'
   })
 };
 
@@ -44,15 +44,9 @@ export class TodoService {
     // ];
   }
 
-  // Delete Todo from the server
-  deleteTodo(todo: Todo): Observable<Todo>{
-    const url = `${this.todosUrl}/${todo.id}`; // deleting a specific todo
-    return this.http.delete<Todo>(url, httpOptions);
-  }
-
   // Toggle Completed
-  toggleCompleted(todo: Todo): Observable<any> { // takes in todo (type is Todo), and returns observable
-    const url = `${this.todosUrl}/${todo.id}`; // updating a specific todo
+  toggleCompleted(todo: Todo): Observable<any> {
+    const url = `${this.todosUrl}/${todo.id}`;
     return this.http.put(url, todo, httpOptions); // passing in url, todo, and httpOptions
   }
 }
