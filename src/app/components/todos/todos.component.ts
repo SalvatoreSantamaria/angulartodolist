@@ -21,4 +21,10 @@ export class TodosComponent implements OnInit {
     });
   }
 
+  deleteTodo(todo: Todo) { // catching in the todos.component.ts file, and setting it to the below
+    console.log('Deleted');
+    this.todos = this.todos.filter(t => t.id !== todo.id); // returning all todos that don't have this id. removing from UI
+    this.todoService.deleteTodo(todo).subscribe(); // deletes todo thru the service. removing from server
+  }
+
 }
