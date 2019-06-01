@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
 import { Todo } from 'src/app/models/todo';
 import { TodoService } from '../../services/todo.service';
 
@@ -8,7 +8,8 @@ import { TodoService } from '../../services/todo.service';
   styleUrls: ['./todo-item.component.css']
 })
 export class TodoItemComponent implements OnInit {
-  @Input() todo: Todo;
+  @Input() todo: Todo; // taking in
+  @Output() deleteTodo: EventEmitter<Todo> = new EventEmitter(); // type is todo. have to catch this in todos.component.html
   constructor(private todoService: TodoService) { }
 
   ngOnInit() {
@@ -28,14 +29,17 @@ export class TodoItemComponent implements OnInit {
     todo.completed = !todo.completed; // setting this to whatever it is not
 
     // update server toggle
-    this.todoService.toggleCompleted(todo).subscribe(todo => {
-      console.log(todo);
+    this.todoService.toggleCompleted(todo).subscribe(todoparam => {
+      console.log(todoparam);
     });
 
   }
-
-  onDelete(todo) {
-    console.log('delete');
+  // clicking the delete button in this component sends off event, emitting this as output (see @Output above)
+  // catching it in todos.component.html, and setting it to deleteTodo in the todos.component.ts
+  onDelete(todo) { // take in todo param
+    console.log('delete', todo);
+    this.deleteTodo.emit(todo); // passing in todo param
 
   }
 }
+
